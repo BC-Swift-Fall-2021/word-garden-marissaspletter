@@ -9,10 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+
 
     @IBOutlet weak var wordGuessed: UILabel!
     @IBOutlet weak var wordsInGame: UILabel!
@@ -26,7 +23,32 @@ class ViewController: UIViewController {
     @IBOutlet weak var gameStatusMessageLabel: UILabel!
     @IBOutlet weak var flowerImageView: UIImageView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let text = guessedLetterTextField.text!
+        guessLetterButton.isEnabled = !(text.isEmpty)
+  
+    }
+    
+    func updateUIAfterGuess() {
+        guessedLetterTextField.resignFirstResponder()
+        guessedLetterTextField.text! = ""
+        guessLetterButton.isEnabled = false
+        
+    }
+    
+    
+    @IBAction func guessedLetterFieldChanged(_ sender: UITextField) {
+        let text = guessedLetterTextField.text!
+        guessLetterButton.isEnabled = !(text.isEmpty)
+    }
+    
+    @IBAction func doneKeyPressed(_ sender: UITextField) {
+        updateUIAfterGuess()
+    }
+    
     @IBAction func guessLetterPressed(_ sender: UIButton) {
+        updateUIAfterGuess()
     }
     
     @IBAction func playAgainButtonPressed(_ sender: UIButton) {
